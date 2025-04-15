@@ -1,0 +1,1 @@
+Using out (not so) cutting-edge technology we are able to locally save your notes! (i know, it's hard to believe) Not only that, but we were also able to incorprate the ability to add MULTIPLE NOTES! alright bit's over, now use the site.(Please)
