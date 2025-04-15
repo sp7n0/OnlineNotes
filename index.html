@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Online Notes Site -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Notes</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Kalam&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="nav">
+    <nav>
+      <button type="button" id="btn">Create Note</button>
+    </nav>
+  </div>
+
+  <!-- Container for the notes grid -->
+    <div class="notes-container"></div>
+
+  <script>
+    const btn = document.getElementById("btn");
+    const container = document.querySelector(".notes-container");
+    const colors = [
+      // yellow
+      '#fff9c4',
+      // orange
+      '#ffccbc',
+      // green
+      '#c8e6c9',
+      // blue
+      '#bbdefb',
+      // pink
+      '#f8bbd0',
+      // red
+      '#ef9a9a',
+      // purple
+      '#e1bee7',
+      // teal
+      '#b2dfdb',
+      // brown
+      '#d7ccc8',
+    ];
+    let notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+    function saveNotes() {
+      localStorage.setItem("notes", JSON.stringify(notes));
+    }
+
+    // update grid template based on number of notes
+    function updateGridColumns() {
+      const count = container.children.length;
+      if (count === 1) {
+        container.style.gridTemplateColumns = '1fr';
+      } else if (count === 2) {
+        container.style.gridTemplateColumns = 'repeat(2, 1fr)';
+      } else {
+        container.style.gridTemplateColumns = 'repeat(3, 1fr)';
+      }
+    }
+
+    function createNote(text = "", color = null, id = Date.now()) {
+      const note = document.createElement("textarea");
+      const noteDiv = document.createElement("div");
+      const delBtn = document.createElement("button");
+
+      // delete button
+      delBtn.innerText = "🗑️";
+      delBtn.className = "delete-btn";
+      delBtn.addEventListener("click", () => {
+        noteDiv.remove();
+        notes = notes.filter(n => n.id !== id);
+        saveNotes();
+        updateGridColumns();
+      });
+
+      // textarea
+      note.setAttribute("placeholder", "Take a note...");
+      note.setAttribute("rows", "1");
+      note.value = text;
+
+      // Auto-resize
+      function resizeNote() {
+        note.style.height = "auto"; // reset height
+        note.style.height = note.scrollHeight + "px";
+      }
+
+      // Update note on input and save to localStorage
+      note.addEventListener("input", function () {
+        resizeNote();
+        const index = notes.findIndex(n => n.id === id);
+        if (index !== -1) {
+          notes[index].text = this.value;
+          saveNotes();
+        }
+      });
+
+      // the note container
+      noteDiv.classList.add("main");
+      const noteColor = color || colors[Math.floor(Math.random() * colors.length)];
+      noteDiv.style.backgroundColor = noteColor;
+      noteDiv.appendChild(delBtn);
+      noteDiv.appendChild(note);
+
+      // Append the note element to the grid container and update the grid layout
+      container.appendChild(noteDiv);
+      resizeNote();
+      updateGridColumns();
+
+      // Save new note if it didn't exist already
+      if (!notes.some(n => n.id === id)) {
+        notes.push({ id, text, color: noteColor });
+        saveNotes();
+      }
+    }
+
+    // Load saved notes on page load
+    notes.forEach(n => createNote(n.text, n.color, n.id));
+
+    // Create note on button click
+    btn.addEventListener("click", function () {
+      createNote();
+    });
+  </script>
+</body>
+
+</html>

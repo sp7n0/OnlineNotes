@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    font-family: 'Kalam', cursive;
+    background: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fsouthlandrealtors.com%2Fwp-content%2Fuploads%2FiStock-11379962072.jpg&f=1&nofb=1&ipt=6f481a39352367e05cf7ea63c1e8d2d0021a45c295b3f8b9f5a4125151ba321b) no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  #btn {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  #btn:hover {
+    background-color: #45a049;
+  }
+
+
+  /* New container for grid layout */
+  .notes-container {
+    display: grid;
+    grid-gap: 1rem;
+    width: 100%;
+    /* grid-template-columns will be dynamically set by JS */
+    margin: 0 auto;
+  }
+  
+  .delete-btn {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    float: right;
+    cursor: pointer;
+    margin-bottom: 4px;
+  }
+  
+  .main {
+    position: relative;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    /* Adjust width: Let the grid control width now */
+    width: 100%;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+    background-color: #fff; /* fallback color */
+  }
+  
+  .main:hover {
+    transform: scale(1.02);
+  }
+  
+  .main textarea {
+    width: 100%;
+    font-size: 18px;
+    font-family: inherit;
+    border: none;
+    outline: none;
+    resize: none;
+    background: transparent;
+    padding: 4px;
+    box-sizing: border-box;
+  }
+  
